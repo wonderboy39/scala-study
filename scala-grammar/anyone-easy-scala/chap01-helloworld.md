@@ -3,7 +3,7 @@
   
 ##### 2. Hello World
 ex)
-```{.scala}
+```scala
 package org.basic.structure
 
 object Ex01 {
@@ -21,7 +21,7 @@ object Ex01 {
 
 
 위의 코드를 java로 작성한 것은 아래와 같다.
-```{.scala}
+```java
 package org.basic.structure
 class Ex01{
   public static void main(String [] args){
