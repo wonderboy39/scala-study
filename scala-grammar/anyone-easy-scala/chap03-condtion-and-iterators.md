@@ -4,122 +4,215 @@
 if, else if, else문은 c, java등 다른 프로그램 언어에 비교했을때 크게 다른 점이 없다.
 ex)
 ```scala
-Object Ex0
+package org.basic.condNIterators
+
+object IfElse {
+  def main(args : Array[String]) : Unit = {
+    var testOdd = 5
+    if(testOdd %2 == 1){
+      println("홀수 입니다")
+    }
+    else if(testOdd %2 == 0){
+      println("짝수 입니다.")
+    }
+    else{
+      println("음수나 비정상적인 값을 입력하셨군요.")
+    }
+  }
+}
 ```
+## 2.반복문
+c,java등의 언어들과 비슷하게 for, while, do~while을 사용할 수 있다. 각각의 경우를 들어보면 아래와 같다.
+#### 1) for
+for문 내부에서 변수의 시작의 시작에서 끝까지의 구간을 설정하는 방식은 c,java와는 다르다. 우선 for문 안에서 반복문 내에서 사용되는 구간변수 설정시 i<-0과 같이 표현한다. for문안에서 임시변수를 선언및 초기화하는 경우 <-키워드를 사용하는 듯하다. 이에 대해서는 예제를 통해서 정리해본다. <-키워드는 차차 공부해가면서 같은 연산자가 나오면 정리해봐야 할듯하다.  
 
-#### 2) 변수,상수의 선언 및 초기화
-#### 변수와 상수
-변수의 선언에는 ;을 생략할 수 있다. 명시적으로 ;을 사용할수 있지만 일반적으로는 ;을 사용하지 않는 편인 듯하다. ;이 없어도 선언이 되기 때문에 굳이 ;을 쓸 필요를 못느끼기 때문일 듯하다.  
+또한 scala의 for문내에서 index를 증가시키는 방식은 아래와 같이 총 세가지 이다.  
+> for( x<-1 to 10) {....}
+> for( x<-1 until 10) {...}
+> for( (num,index) <- List.zipWithIndex ) {...}
 
-변수, 상수의 선언시 자료형을 명시하지 않는다. 컴파이러가 알아서 그 자료형에 대해 타입을 추론한다. 물론 명시적으로 자료형을 명시할 수는 있다.
-
-c,java에서는 const,final처럼 상수를 선언하는 방식이 있다. 스칼라에도 상수를 선언하는 방법이 있다. 스칼라에서 변수, 상수를 선언하는 방식을 살펴보면 아래와 같다.  
-
+#### for (x<-1 to 10)의 방식  
+for문의 each step을 구분할 변수의 구간 설정시 to를 사용할 경우 to키워드는 c,java에서 사용하는 비교 연산자 <= 와 같은 역할을 수행한다.
 ```scala
-var orange = "orange" // 변수 선언
-val APPLE = "APPPLE" // 상수 선언
-```
+package org.basic.condNIterators
 
-스칼라는 동시성개념을 위해 태어난 언어라고 한다. 따라서 동시성을 가진 프로그램 내에서 변하지 않는 값을 가지는 것을 중요하게 생각한다고 한다. 이로 인해 immutable(불변성)을 지원하기 위해 태어난 키워드가 val이다.  
-
-#### 변수의 선언은 반드시 초기화와 함께 이루어져야 한다.
-아래와 같이 초기화 없이 변수를 선언하면 초기화 에러를 내게 된다.  
-```scala
-var a
-```
-
-c,java의 경우 변수의 자료형을 지정해주기 때문에 메모리에 지정될 공간의 사이즈를 컴파일러가 알수 있다. 하지만 스칼라의 경우는 변수의 타입을 지정하지 않고 선언할 경우 확실한 가이드라인이 필요하다. 따라서 선언과 동시에 초기화를 해주어야 한다.  
-
-```scala
-var ten = 10 // 컴파일러는 변수 ten이 Int자료형을 가진다고 판단하고 명시적으로 자료형을 지정하지 않아도 Int로 인식한다.
-
-// 또는 아래와 같이 null 또는 None으로 지정가능하다.
-var b = null;
-var b = None;
-```
-
-ex) 위의 표현식들을 main안에 표현해보면...
-```scala
-package org.basic.variables
-
-object DeclareVariables {
-  def main (args : Array[String]) : Unit = {
-    var ten = 10
-    var b = null
-    var c = None
-    var d : Int = 5000
-    
-    println(ten)
-    println(b)
-    println(c)
-    println(d)
+object IteratorsFor {
+  def main(args:Array[String]):Unit = {
+    forIterUsingTo()
+  }
+  def forIterUsingTo() = {
+    var sum :Int = 0
+    for(i<-1 to 10){
+      sum = i+ sum
+    }
+    println(sum)
   }
 }
 /*
 출력결과
-10
-null
-None
-5000
+55
 */
 ```
+
+#### for( x<-1 until 10)의 방식  
+for문의 each step을 구분할 변수의 구간 설정시 until을 사용할 경우 until키워드는 c,java에서 사용하는 비교연산자 < 와 같은 역할을 수행한다.
+```scala
+package org.basic.condNIterators
+
+object IteratorsFor {
+  def main(args:Array[String]):Unit = {
+    forIterUsingTo()
+    forIterUsingUntil()
+  }
+  def forIterUsingTo() = {
+    var sum :Int = 0
+    for(i<-1 to 10){
+      sum = i+ sum
+    }
+    println(sum)
+  }
   
-#### 변수의 자료형을 명시적으로 선언할 경우
-변수의 자료형을 명시적으로 선언해 특정 자료형으로만 값이 저장되게 하려면 아래와 같이 할수있다.  
-
-```scala
-var b : Int = 10
+  def forIterUsingUntil() = {
+    var sum :Int= 0
+    for(i<-1 until 10){
+      sum = i + sum
+    }
+    println(sum)
+  }
+}
+/*
+출력결과
+55
+45
+*/
 ```
-선언방식을 유심히 살펴보면, 타입의 선언은 항상 :Int 와 같은 표현식을 변수의 이름뒤에 붙이는 것을 알수 있다. chap01-helloworld.md에 작성했던 main문에서 보이던 아래의 코드에서도 매개변수의 타입, 함수의 반환형 선언에 비슷한 표현을 쓴것을 확인가능하다.  
 
+#### 인덱스가 있는 for문 : for( (num,index) <- List.zipWithIndex )
+반목문 사용시 인덱스가 필요할 경우 아래와 같은 방식을 사용한다.
 ```scala
-object Ex01{
+for( (num, index) <- List.zipWithIndex ){
+  println(num)
+  println(index)
+}
+```
+
+#### 2) while, do while
+while, do while은 c, java와 다른 것이 거의 없다. 자세한 표현방식은 예제를 참고해보자
+ex) while문의 사용예
+```scala
+package org.basic.condNIterators
+
+object IteratorsWhile {
   def main(args : Array[String]) : Unit = {
-    println("hello")
+    iterUsingWhile()
+  }
+  
+  def iterUsingWhile() = {
+    var sum :Int = 0
+    var i : Int = 1
+    while (i<=10){
+      sum = i + sum
+      i = i+1
+    }
+    println(sum)
+  }
+}
+/*
+출력결과
+55
+*/
+```
+
+ex) do~while 사용예
+```scala
+package org.basic.condNIterators
+
+object IteratorsWhile {
+  def main(args : Array[String]) : Unit = {
+    iterUsingWhile()
+    iterUsingDoWhile()
+  }
+  
+  def iterUsingWhile() = {
+    var sum :Int = 0
+    var i : Int = 1
+    while (i<=10){
+      sum = i + sum
+      i = i+1
+    }
+    println(sum)
+  }
+  
+  def iterUsingDoWhile() = {
+    var i = 0
+    var sum = 0
+    do{
+      i = i+1
+      sum = i + sum
+    }while(i <= 10)
+    
+    println(sum)
+  }
+}
+/*
+출력결과
+55
+66
+*/
+```
+
+#### 3) 이중 for문의 사용
+c, java에서 사용하는 방식의 이중 for를 스칼라에서도 사용할 수 있다. 하지만 스칼라에도 추가된 중첩된 for문의 형식을 예제로 남겨보면 아래의 형태를 가진다. 두번째 이후의 반복문의 each step을 의미하는 변수의 시작과 끝 구간을 단순히 한번더 나열하는 것으로 끝난다.
+
+ex)
+```scala
+package org.basic.condNIterators
+
+object IteratorsNestedFor {
+  def main(args : Array[String]) :Unit = {
+//    legacyNestedFor()
+    println("Nested For in scala === ")
+    scalaNestedFor()
+  }
+  
+  def legacyNestedFor() = {
+    for( x<-1 until 5){
+      for(y<-1 until 5){
+        print(x + " * " + y + " = " + x*y )
+        println("")
+      }
+    }
+  }
+  
+  def scalaNestedFor() = {
+    for(x<-1 until 5; y<-1 until 5){
+      print(x + " * " + y + " = " + x*y )
+      println("")
+    }
   }
 }
 ```
 
-#### 유의점
-스칼라에서는 변수의 선언에 타입을 지정할 필요는 없다. 하지만 선언시 var 또는 val키워드는 반드시 사용해야 한다. 자료형을 함께 선언하더라도 var 또는 val키워드를 반드시 사용해야 한다.  
-
-## 2.기본자료형, 참조자료형
-스칼라의 자료형은 크게 기본자료형, 참조자료형으로 나뉜다. 기본 자료형은 AnyVal, 참조자료형은 AnyRef라고 불리운다. 이렇게 둘로 구분지을 수 있다.  
-
-#### 1) 기본 자료형, AnyVal
-스칼라의 기본자료형은 숙지하고 있는 편이 좋다(각 자료형의 철자는 어떻게 되는지 사이즈는 어느정도인지, 범위는 어떻게 되는지 등등). context를 읽는 것이 뛰어난 편이어서 컴파일러가 타입을 추론한다고 해도 가끔은 애매하게 처리하는 경우가 있을수 있기 때문이다.  
-
-String은 기본자료형인 AnyVal의 기본구성원이 아니지만 AnyVal과 유사하게 작용하므로 기본자료형과 같은 부류로 묶어서 알아두면 좋다. 기본 자료형에는 아래와 같이 9개의 자료형으로 구분된다. 각 기본자료형은 그 자체로 이진수로 메모리에 저장된다.  
-
-> * Byte
-> * Short
-> * Int
-> * Long
-> * Float
-> * Double
-> * Char
-> * Boolean
-> * String
-
-ex) 단순 값의 복사, 대입 예제
+#### 4) 조건문을 가진 반복문
+for문내에 조건문을 사용해야 하는 경우가 있다. 이 경우 어떤식으로 표현하는지 예를 통해 알아보자
 ```scala
-package org.basic.variables
+package org.basic.condNIterators
 
-object CopyValue {
-  def main(args : Array[String]) : Unit = {
-    var five : Int = 5
-    var copyA = five
-    five = 10
-    println(five)
-    println(copyA)
+object IteratorsWithCond {
+  def main(args : Array[String] ) : Unit = {
+    iterForWithcondition()
+  }
+  
+  def iterForWithcondition() = {
+    for( i<-(1 to 10) if(i%2 == 1)){
+      print(i + " ")
+    }
+    println()
   }
 }
+/*
+출력결과
+1 3 5 7 9 
+*/
 ```
-
-#### 2) 참조자료형, AnyRef  
-클래스와 같은 것들을 인스턴스화 한 후 그 인스턴스가 메모리공간에 차지하고 있는 주소를 가리키고 있는 변수를 참조변수라고 한다. 또는 클래스타입의 자료형을 여기저기서 만들어서 쓰는 것은 비용이 많이 되는데 이것을 메모리의 한 공간에 놓고 싱글턴 패턴처럼 사용할 수 있다.
-
-
-
-
 
