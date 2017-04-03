@@ -166,7 +166,7 @@ class Student extends Testing with Studying with Walking{
 }
 
 trait Testing {
-  def testing
+  def testing   // abstract 메서드처럼 사용했다.  
 }
 
 trait Studying {
@@ -197,8 +197,8 @@ class CSStudent extends Student with Walking with Testing{
   def studying = println("I'm coding some pilots.")
 }
 
-abstract class Student {
-  def studying
+abstract class Student { // abstract 클래스  
+  def studying
   def greeting = println("I'm a student.");
 }
 
