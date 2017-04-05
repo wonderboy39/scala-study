@@ -87,12 +87,12 @@ def multiply ( left : Int, right : Int) : Int = left * right
   
 ## CALL BY NAME 함수  
 스칼라에서는 함수를 아래의 두가지 방식으로 호출가능하다.
- * call by value
- * call by name
-call by value는 일반적인 함수형태이다. (ex. avg(sum(x)))
-call by name 은 함수자체가 인자값으로 넘겨지는 형태이다. sum함수 자체가 avg함수의 인자로 넘어가는 형태이다.
+ * call by value  
+ * call by name  
+call by value는 일반적인 함수형태이다. (ex. avg(sum(x)))  
+call by name 은 함수자체가 인자값으로 넘겨지는 형태이다. sum함수 자체가 avg함수의 인자로 넘어가는 형태이다.  
 
-아래의 예는 일반적으로 자주 쓰이는 call by value방식의 함수다.
+아래의 예는 일반적으로 자주 쓰이는 call by value방식의 함수다.  
 ```scala
 package org.basic.functions
 
